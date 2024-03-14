@@ -49,12 +49,12 @@ namespace BattleShips
         {
             while (true)
             {
-                Console.Write($"Podaj współrzędne statku (np. A5 lub A10) o długości {size}: ");
+                Console.Write($"Podaj współrzędne statk o długości {size}: ");
                 string input = Console.ReadLine().ToUpper();
 
                 if (input.Length < 2 || input.Length > 3 || !char.IsLetter(input[0]) || !char.IsDigit(input[input.Length - 1]))
                 {
-                    Console.WriteLine("Nieprawidłowe współrzędne. Podaj literę i cyfrę (np. A5 lub A10).");
+                    Console.WriteLine("Nieprawidłowe współrzędne. Podaj literę i cyfrę.");
                     continue;
                 }
 
@@ -164,12 +164,12 @@ namespace BattleShips
 
                 while (true)
                 {
-                    Console.Write("Podaj współrzędne strzału (np. C4): ");
+                    Console.Write("Podaj współrzędne strzału: ");
                     string input = Console.ReadLine().ToUpper();
 
                     if (input.Length < 2 || input.Length > 3 || !char.IsLetter(input[0]) || !char.IsDigit(input[input.Length - 1]))
                     {
-                        Console.WriteLine("Nieprawidłowe współrzędne. Podaj literę i cyfrę (np. C4).");
+                        Console.WriteLine("Nieprawidłowe współrzędne. Podaj literę i cyfrę.");
                         continue;
                     }
 

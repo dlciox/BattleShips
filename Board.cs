@@ -44,6 +44,21 @@ namespace BattleShips
             }
         }
 
+        public char GetCell(int x, int y)
+        {
+            return grid[y, x];
+        }
+
+        public void SetCell(int x, int y, char value)
+        {
+            grid[y, x] = value;
+
+            if (value == 'X' || value == '.')
+            {
+                hits[y, x] = value;
+            }
+        }
+
         public void PlaceShip(string coordinates, char direction, int size)
         {
             int x = coordinates[0] - 'A';
@@ -79,21 +94,6 @@ namespace BattleShips
                 {
                     grid[y + i, x] = 'O';
                 }
-            }
-        }
-
-        public char GetCell(int x, int y)
-        {
-            return grid[y, x];
-        }
-
-        public void SetCell(int x, int y, char value)
-        {
-            grid[y, x] = value;
-
-            if (value == 'X' || value == '.')
-            {
-                hits[y, x] = value;
             }
         }
 

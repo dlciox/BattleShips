@@ -22,13 +22,17 @@ namespace BattleShips
             switch (option)
             {
                 case 1:
+                    Thread.Sleep(2000)
+                    Console.Clear();
                     Game.Start();
                     break;
                 case 2:
                     Environment.Exit(0);
                     break;
                 default:
-                    Console.WriteLine("Nieprawidłowa opcja. Wybierz ponownie.");
+                    Console.WriteLine("Nieprawidłowa opcja.");
+                    Thread.Sleep(3000)
+                    Console.Clear();
                     break;
             }
         }
