@@ -22,7 +22,7 @@ namespace BattleShips
             switch (option)
             {
                 case 1:
-                    Thread.Sleep(2000)
+                    Thread.Sleep(2000);
                     Console.Clear();
                     Game.Start();
                     break;
@@ -31,7 +31,7 @@ namespace BattleShips
                     break;
                 default:
                     Console.WriteLine("Nieprawidłowa opcja.");
-                    Thread.Sleep(3000)
+                    Thread.Sleep(3000);
                     Console.Clear();
                     break;
             }
