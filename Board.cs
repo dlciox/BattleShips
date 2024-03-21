@@ -59,7 +59,7 @@ namespace BattleShips
             }
         }
 
-        public void PlaceShip(string coordinates, char direction, int size)
+        public void ShipPlacement(string coordinates, char direction, int size)
         {
             int x = coordinates[0] - 'A';
             int y = int.Parse(coordinates.Substring(1)) - 1;
@@ -182,7 +182,7 @@ namespace BattleShips
             return true;
         }
 
-        public bool AllShipsSunk()
+        public bool AreShipsSunk()
         {
             for (int i = 0; i < 10; i++)
             {

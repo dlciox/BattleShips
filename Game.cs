@@ -20,7 +20,7 @@ namespace BattleShips
             Console.WriteLine($"{player2.Name}, rozpocznij ustawianie statków.");
             SetupBoard(player2);
 
-            PlayGame(player1, player2);
+            Play(player1, player2);
         }
 
         private static Player CreatePlayer(int playerNumber)
@@ -37,7 +37,7 @@ namespace BattleShips
                 for (int i = 0; i < 5 - size; i++)
                 {
                     Console.WriteLine($"Ustaw {5 - size} statków o długości {size}.");
-                    PlaceShip(player.OwnBoard, size);
+                    ShipPlacement(player.OwnBoard, size);
                     Console.Clear();
                     Console.WriteLine($"{player.Name}, oto Twoja plansza:");
                     player.OwnBoard.Display();
@@ -45,7 +45,7 @@ namespace BattleShips
             }
         }
 
-        private static void PlaceShip(Board board, int size)
+        private static void ShipPlacement(Board board, int size)
         {
             while (true)
             {
@@ -91,7 +91,7 @@ namespace BattleShips
                     continue;
                 }
 
-                board.PlaceShip(input, direction, size);
+                board.ShipPlacement(input, direction, size);
                 break;
             }
         }
@@ -142,7 +142,7 @@ namespace BattleShips
             return isCollision;
         }
 
-        private static void PlayGame(Player player1, Player player2)
+        private static void Play(Player player1, Player player2)
         {
             Console.Clear();
             Console.WriteLine("Rozpoczynamy grę!");
@@ -154,6 +154,10 @@ namespace BattleShips
 
             while (!gameEnded)
             {
+                Console.WriteLine("Wciśnij dowolny klawisz, aby zacząć strzelać");
+                Console.ReadKey(true);
+                Console.Clear();
+
                 Console.WriteLine($"{currentPlayer.Name}, teraz Twoja kolej. Strzelaj!");
 
                 Console.WriteLine($"Twoja plansza, {currentPlayer.Name}:");
@@ -187,7 +191,7 @@ namespace BattleShips
                     if (cellValue == 'O')
                     {
                         otherPlayer.OwnBoard.SetCell(x, y, 'X');
-                        if (otherPlayer.OwnBoard.AllShipsSunk())
+                        if (otherPlayer.OwnBoard.AreShipsSunk())
                         {
                             gameEnded = true;
                             winner = currentPlayer;
@@ -207,9 +211,6 @@ namespace BattleShips
                     {
                         Console.WriteLine("Pudło!");
                         Thread.Sleep(1000);
-                        Console.Clear();
-                        Console.WriteLine("Wciśnij dowolny klawisz, aby zacząć strzelać");
-                        Console.ReadKey(true);
                         Console.Clear();
                         break;
                     }
