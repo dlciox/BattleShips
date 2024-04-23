@@ -53,7 +53,7 @@ namespace BattleShips
         {
             grid[y, x] = value;
 
-            if (value == 'X' || value == '.')
+            if (value == 'X' || value == '.' || value == 'O')
             {
                 hits[y, x] = value;
             }
@@ -79,20 +79,20 @@ namespace BattleShips
                 }
             }
 
-            grid[y, x] = 'O';
+            grid[y, x] = '#';
 
             if (direction == 'H')
             {
                 for (int i = 1; i < size; i++)
                 {
-                    grid[y, x + i] = 'O';
+                    grid[y, x + i] = '#';
                 }
             }
             else if (direction == 'V')
             {
                 for (int i = 1; i < size; i++)
                 {
-                    grid[y + i, x] = 'O';
+                    grid[y + i, x] = '#';
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace BattleShips
                 int newY = y - i;
                 if (newY >= 0)
                 {
-                    if (GetCell(x, newY) == 'O')
+                    if (GetCell(x, newY) == '#')
                     {
                         return false;
                     }
@@ -124,7 +124,7 @@ namespace BattleShips
                 int newX = x + i;
                 if (newX < 10)
                 {
-                    if (GetCell(newX, y) == 'O')
+                    if (GetCell(newX, y) == '#')
                     {
                         return false;
                     }
@@ -144,7 +144,7 @@ namespace BattleShips
                 int newY = y + i;
                 if (newY < 10)
                 {
-                    if (GetCell(x, newY) == 'O')
+                    if (GetCell(x, newY) == '#')
                     {
                         return false;
                     }
@@ -164,7 +164,7 @@ namespace BattleShips
                 int newX = x - i;
                 if (newX >= 0)
                 {
-                    if (GetCell(newX, y) == 'O')
+                    if (GetCell(newX, y) == '#')
                     {
                         return false;
                     }
@@ -188,7 +188,7 @@ namespace BattleShips
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    if (grid[i, j] == 'O')
+                    if (grid[i, j] == '#')
                         return false;
                 }
             }
@@ -208,7 +208,37 @@ namespace BattleShips
                     {
                         Console.Write("X ");
                     }
-                    else if (cell == 'O' || grid[i, j] == 'O')
+                    else if (cell == 'O')
+                    {
+                        Console.Write("O ");
+                    }
+                    else if (cell == '#' || grid[i, j] == '#')
+                    {
+                        Console.Write("# ");
+                    }
+                    else
+                    {
+                        Console.Write(". ");
+                    }
+                }
+                Console.WriteLine();
+            }
+        }
+
+        public void DisplayShots()
+        {
+            Console.WriteLine("   A B C D E F G H I J");
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write((i + 1).ToString().PadLeft(2) + " ");
+                for (int j = 0; j < 10; j++)
+                {
+                    char cell = hits[i, j];
+                    if (cell == 'X')
+                    {
+                        Console.Write("X ");
+                    }
+                    else if (cell == 'O')
                     {
                         Console.Write("O ");
                     }

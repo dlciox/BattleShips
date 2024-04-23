@@ -14,6 +14,7 @@ namespace BattleShips
             Player player1 = CreatePlayer(1);
             Player player2 = CreatePlayer(2);
 
+            Console.Clear();
             Console.WriteLine($"{player1.Name}, rozpocznij ustawianie statków.");
             SetupBoard(player1);
             Console.Clear();
@@ -49,7 +50,7 @@ namespace BattleShips
         {
             while (true)
             {
-                Console.Write($"Podaj współrzędne statk o długości {size}: ");
+                Console.Write($"Podaj współrzędne statku (od A-J i 1-10, np. D5) o długości {size}: ");
                 string input = Console.ReadLine().ToUpper();
 
                 if (input.Length < 2 || input.Length > 3 || !char.IsLetter(input[0]) || !char.IsDigit(input[input.Length - 1]))
@@ -60,10 +61,20 @@ namespace BattleShips
 
                 int x = input[0] - 'A';
                 int y = int.Parse(input.Substring(1)) - 1;
+                char direction = 'H'; 
 
-                Console.Write("Podaj kierunek statku (V - pionowy, H - poziomy): ");
-                char direction = char.ToUpper(Console.ReadKey().KeyChar);
-                Console.WriteLine();
+                if (size > 1)
+                {
+                    Console.Write("Podaj kierunek statku (V - pionowy, H - poziomy): ");
+                    direction = char.ToUpper(Console.ReadKey().KeyChar);
+                    Console.WriteLine();
+
+                    if (direction != 'H' && direction != 'V')
+                    {
+                        Console.WriteLine("Nieprawidłowy kierunek. Wprowadź H lub V.");
+                        continue;
+                    }
+                }
 
                 if (direction != 'H' && direction != 'V')
                 {
@@ -154,26 +165,27 @@ namespace BattleShips
 
             while (!gameEnded)
             {
-                Console.WriteLine("Wciśnij dowolny klawisz, aby zacząć strzelać");
+                Console.WriteLine($"Wciśnij dowolny klawisz, aby zacząć strzelać {currentPlayer.Name}");
                 Console.ReadKey(true);
                 Console.Clear();
 
                 Console.WriteLine($"{currentPlayer.Name}, teraz Twoja kolej. Strzelaj!");
 
-                Console.WriteLine($"Twoja plansza, {currentPlayer.Name}:");
-                currentPlayer.OwnBoard.DisplayHits();
-
-                Console.WriteLine($"Twoja plansza trafień, {currentPlayer.Name}:");
-                currentPlayer.TargetBoard.Display();
-
                 while (true)
                 {
+                    Console.WriteLine($"Twoja plansza, {currentPlayer.Name}:");
+                    currentPlayer.OwnBoard.DisplayHits();
+
+                    Console.WriteLine($"Twoja plansza trafień, {currentPlayer.Name}:");
+                    otherPlayer.OwnBoard.DisplayShots();
+
                     Console.Write("Podaj współrzędne strzału: ");
                     string input = Console.ReadLine().ToUpper();
 
                     if (input.Length < 2 || input.Length > 3 || !char.IsLetter(input[0]) || !char.IsDigit(input[input.Length - 1]))
                     {
                         Console.WriteLine("Nieprawidłowe współrzędne. Podaj literę i cyfrę.");
+                        Console.Clear();
                         continue;
                     }
 
@@ -183,12 +195,13 @@ namespace BattleShips
                     if (x < 0 || x >= 10 || y < 0 || y >= 10)
                     {
                         Console.WriteLine("Współrzędne poza zakresem planszy.");
+                        Console.Clear();
                         continue;
                     }
 
                     char cellValue = otherPlayer.OwnBoard.GetCell(x, y);
 
-                    if (cellValue == 'O')
+                    if (cellValue == '#')
                     {
                         otherPlayer.OwnBoard.SetCell(x, y, 'X');
                         if (otherPlayer.OwnBoard.AreShipsSunk())
@@ -206,9 +219,11 @@ namespace BattleShips
                             Console.WriteLine("Trafiony!");
                         }
                         Thread.Sleep(1000);
+                        Console.Clear();
                     }
                     else
                     {
+                        otherPlayer.OwnBoard.SetCell(x, y, 'O');
                         Console.WriteLine("Pudło!");
                         Thread.Sleep(1000);
                         Console.Clear();
