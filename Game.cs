@@ -37,7 +37,7 @@ namespace BattleShips
             {
                 for (int i = 0; i < 5 - size; i++)
                 {
-                    Console.WriteLine($"Ustaw {5 - size} statków o długości {size}.");
+                    Console.WriteLine($"Ustaw {5 - size} statki o długości {size}.");
                     ShipPlacement(player.OwnBoard, size);
                     Console.Clear();
                     Console.WriteLine($"{player.Name}, oto Twoja plansza:");
@@ -173,6 +173,7 @@ namespace BattleShips
 
                 while (true)
                 {
+                    Console.WriteLine("# oznacza statek, X oznacza trafienie w statek, O oznacza pudło");
                     Console.WriteLine($"Twoja plansza, {currentPlayer.Name}:");
                     currentPlayer.OwnBoard.DisplayHits();
 
